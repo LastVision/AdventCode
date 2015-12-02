@@ -4,16 +4,34 @@
     <Filter Include="PreCompile">
       <UniqueIdentifier>{ba4b1a36-371a-4649-9414-3542ea1dee49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FileIO">
+      <UniqueIdentifier>{f2a15591-f526-42d3-b358-d86fd2e43951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CommonHelper">
+      <UniqueIdentifier>{26b95a09-1d87-408e-ab0f-fd00e0073f4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="FileReader.cpp">
+      <Filter>FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonHelper.cpp">
+      <Filter>CommonHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.h">
+      <Filter>FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonHelper.h">
+      <Filter>CommonHelper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
