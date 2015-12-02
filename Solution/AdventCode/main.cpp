@@ -15,7 +15,7 @@ void main()
 
 	int totalAmountOfPaper = 0;
 	int totalAmountOfRibbon = 0;
-	for (int i = 0; i < vectorContainer.size(); ++i)
+	for (unsigned int i = 0; i < vectorContainer.size(); ++i)
 	{
 		totalAmountOfPaper += GetAmountOfPaper(vectorContainer[i]);
 		totalAmountOfRibbon += GetAmountOfRibbon(vectorContainer[i]);
@@ -30,7 +30,7 @@ void main()
 void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirstCharacterToBasement)
 {
 	bool hasBeenInBasement = false;
-	for (int i = 0; i < aInputString.length(); ++i)
+	for (unsigned int i = 0; i < aInputString.length(); ++i)
 	{
 		if (hasBeenInBasement == false && aRoomNumber < 0)
 		{
@@ -50,9 +50,9 @@ void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirs
 
 int GetAmountOfPaper(const Vector3f& aVector)
 {
-	int firstSurfaceArea = aVector.x * aVector.y;
-	int secondSurfaceArea = aVector.y * aVector.z;
-	int thirdSurfaceArea = aVector.x * aVector.z;
+	int firstSurfaceArea = static_cast<int>(aVector.x * aVector.y);
+	int secondSurfaceArea = static_cast<int>(aVector.y * aVector.z);
+	int thirdSurfaceArea = static_cast<int>(aVector.x * aVector.z);
 	int extraPaper = 0;
 	if (firstSurfaceArea <= secondSurfaceArea && firstSurfaceArea <= thirdSurfaceArea) extraPaper = firstSurfaceArea;
 	if (secondSurfaceArea <= firstSurfaceArea && secondSurfaceArea <= thirdSurfaceArea) extraPaper = secondSurfaceArea;
@@ -63,9 +63,9 @@ int GetAmountOfPaper(const Vector3f& aVector)
 
 int GetAmountOfRibbon(const Vector3f& aVector)
 {
-	int firstFace = 0;
-	int secondFace = 0;
-	int extraRibbon = aVector.x * aVector.y * aVector.z;
+	float firstFace = 0;
+	float secondFace = 0;
+	int extraRibbon = static_cast<int>(aVector.x * aVector.y * aVector.z);
 
 	if (aVector.x <= aVector.y && aVector.x <= aVector.z)
 	{
@@ -86,5 +86,5 @@ int GetAmountOfRibbon(const Vector3f& aVector)
 		else secondFace = aVector.y;
 	}
 
-	return (firstFace + firstFace + secondFace + secondFace) + extraRibbon;
+	return static_cast<int>(firstFace + firstFace + secondFace + secondFace) + extraRibbon;
 }
