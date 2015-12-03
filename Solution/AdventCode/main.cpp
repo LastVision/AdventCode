@@ -3,15 +3,21 @@
 #include "CommonHelper.h"
 
 void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirstCharacterToBasement);
-int GetAmountOfPaper(const Vector3f& aVector);
-int GetAmountOfRibbon(const Vector3f& aVector);
+int GetAmountOfPaper(const Vector3<float>& aVector);
+int GetAmountOfRibbon(const Vector3<float>& aVector);
+
+struct HouseData
+{
+	Vector2<int> myPosition;
+	int numberOfPresents;
+};
 
 void main()
 {
 	FileReader reader("Data/AdventCodeDayTwo.txt");
 	CommonHelper helper;
 
-	std::vector<Vector3f> vectorContainer = helper.ConvertStringVectorToVector3f(reader.ReadLines());
+	std::vector<Vector3<float>> vectorContainer = helper.ConvertStringVectorToVector3f(reader.ReadLines());
 
 	int totalAmountOfPaper = 0;
 	int totalAmountOfRibbon = 0;
@@ -48,7 +54,7 @@ void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirs
 	}
 }
 
-int GetAmountOfPaper(const Vector3f& aVector)
+int GetAmountOfPaper(const Vector3<float>& aVector)
 {
 	int firstSurfaceArea = static_cast<int>(aVector.x * aVector.y);
 	int secondSurfaceArea = static_cast<int>(aVector.y * aVector.z);
@@ -61,7 +67,7 @@ int GetAmountOfPaper(const Vector3f& aVector)
 	return ((2 * firstSurfaceArea) + (2 * secondSurfaceArea) + (2 * thirdSurfaceArea)) + extraPaper;
 }
 
-int GetAmountOfRibbon(const Vector3f& aVector)
+int GetAmountOfRibbon(const Vector3<float>& aVector)
 {
 	float firstFace = 0;
 	float secondFace = 0;

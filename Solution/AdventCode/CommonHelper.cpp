@@ -11,10 +11,10 @@ CommonHelper::~CommonHelper()
 {
 }
 
-std::vector<Vector3f> CommonHelper::ConvertStringVectorToVector3f(const std::vector<std::string>& aStringVector)
+std::vector<Vector3<float>> CommonHelper::ConvertStringVectorToVector3f(const std::vector<std::string>& aStringVector)
 {
-	std::vector<Vector3f> returnVector;
-	Vector3f convertedInput;
+	std::vector<Vector3<float>> returnVector;
+	Vector3<float> convertedInput(0,0,0);
 
 	for (int i = 0; i < aStringVector.size(); ++i)
 	{
