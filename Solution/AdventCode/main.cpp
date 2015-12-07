@@ -2,35 +2,72 @@
 #include "FileReader.h"
 #include "CommonHelper.h"
 
-void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirstCharacterToBasement);
-int GetAmountOfPaper(const Vector3<float>& aVector);
-int GetAmountOfRibbon(const Vector3<float>& aVector);
-
 struct HouseData
 {
+	HouseData() { myPosition.x = 0; myPosition.y = 0; numberOfPresents = 0; };
 	Vector2<int> myPosition;
 	int numberOfPresents;
 };
 
+void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirstCharacterToBasement);
+int GetAmountOfPaper(const Vector3<float>& aVector);
+int GetAmountOfRibbon(const Vector3<float>& aVector);
+void Visit(HouseData aHouse);
+
+std::vector<HouseData> locHouses;
+
+
 void main()
 {
-	FileReader reader("Data/AdventCodeDayTwo.txt");
+	FileReader reader("Data/AdventCodeDayThree.txt");
 	CommonHelper helper;
 
-	std::vector<Vector3<float>> vectorContainer = helper.ConvertStringVectorToVector3f(reader.ReadLines());
+	std::string path = reader.ReadAll();
 
-	int totalAmountOfPaper = 0;
-	int totalAmountOfRibbon = 0;
-	for (unsigned int i = 0; i < vectorContainer.size(); ++i)
+	HouseData currentHouse;
+	currentHouse.myPosition.x = 0;
+	currentHouse.myPosition.y = 0;
+	currentHouse.numberOfPresents = 0;
+	Visit(currentHouse);
+	for (unsigned int i = 0; i < path.length(); ++i)
 	{
-		totalAmountOfPaper += GetAmountOfPaper(vectorContainer[i]);
-		totalAmountOfRibbon += GetAmountOfRibbon(vectorContainer[i]);
+		if (path[i] == '<')
+		{
+			currentHouse.myPosition.x--;
+		}
+		else if (path[i] == '>')
+		{
+			currentHouse.myPosition.x++;
+		}
+		else if (path[i] == '^')
+		{
+			currentHouse.myPosition.y++;
+		}
+		else if (path[i] == 'v')
+		{
+			currentHouse.myPosition.y--;
+		}
+		Visit(currentHouse);
 	}
 
-	std::cout << "Amount of paper needed " << totalAmountOfPaper << std::endl;
-	std::cout << "Amount of ribbon needed " << totalAmountOfRibbon << std::endl;
+	std::cout << "Houses visited: " << locHouses.size() << std::endl;
 
 	system("pause");
+}
+
+void Visit(HouseData aHouse)
+{
+	for (unsigned int i = 0; i < locHouses.size(); ++i)
+	{
+		if (aHouse.myPosition.x == locHouses[i].myPosition.x && 
+			aHouse.myPosition.y == locHouses[i].myPosition.y)
+		{
+			locHouses[i].numberOfPresents++;
+			return;
+		}
+	}
+	aHouse.numberOfPresents += 1;
+	locHouses.push_back(aHouse);
 }
 
 void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirstCharacterToBasement)

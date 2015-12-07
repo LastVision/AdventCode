@@ -4,6 +4,7 @@
 template <typename T>
 struct Vector2
 {
+	Vector2() : x(0), y(0) {};
 	Vector2(T aX, T aY)
 		: x(aX), y(aY) {};
 	T x;
@@ -13,6 +14,7 @@ struct Vector2
 template <typename T>
 struct Vector3
 {
+	Vector3() : x(0), y(0), z(0) {};
 	Vector3(T aX, T aY, T aZ)
 		: x(aX), y(aY), z(aZ) {}
 	T x;
@@ -23,6 +25,7 @@ struct Vector3
 template <typename T>
 struct Vector4
 {
+	Vector4() : x(0), y(0), z(0), w(0) {};
 	Vector4(T aX, T aY, T aZ, T aW)
 		: x(aX), y(aY), z(aZ), w(aW) {}
 	T x;
