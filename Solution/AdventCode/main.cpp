@@ -12,10 +12,11 @@ struct HouseData
 void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirstCharacterToBasement);
 int GetAmountOfPaper(const Vector3<float>& aVector);
 int GetAmountOfRibbon(const Vector3<float>& aVector);
-void Visit(HouseData aHouse);
+void Visit(HouseData aHouse, bool aPlayerOne);
 
 std::vector<HouseData> locHouses;
-
+std::vector<HouseData> locPlayerOneHouses;
+std::vector<HouseData> locPlayerTwoHouses;
 
 void main()
 {
@@ -23,31 +24,37 @@ void main()
 	CommonHelper helper;
 
 	std::string path = reader.ReadAll();
+	//std::string path = "^v^v^v^v^v";
 
-	HouseData currentHouse;
-	currentHouse.myPosition.x = 0;
-	currentHouse.myPosition.y = 0;
-	currentHouse.numberOfPresents = 0;
-	Visit(currentHouse);
+	HouseData p1CurrentHouse;
+	HouseData p2CurrentHouse;
+
+	Visit(p1CurrentHouse, true);
+	Visit(p2CurrentHouse, false);
 	for (unsigned int i = 0; i < path.length(); ++i)
 	{
 		if (path[i] == '<')
 		{
-			currentHouse.myPosition.x--;
+			if (i % 2 == 0) p1CurrentHouse.myPosition.x--;
+			else p2CurrentHouse.myPosition.x--;
 		}
 		else if (path[i] == '>')
 		{
-			currentHouse.myPosition.x++;
+			if (i % 2 == 0) p1CurrentHouse.myPosition.x++;
+			else p2CurrentHouse.myPosition.x++;
 		}
 		else if (path[i] == '^')
 		{
-			currentHouse.myPosition.y++;
+			if (i % 2 == 0) p1CurrentHouse.myPosition.y++;
+			else p2CurrentHouse.myPosition.y++;
 		}
 		else if (path[i] == 'v')
 		{
-			currentHouse.myPosition.y--;
+			if (i % 2 == 0) p1CurrentHouse.myPosition.y--;
+			else p2CurrentHouse.myPosition.y--;
 		}
-		Visit(currentHouse);
+		if (i % 2 == 0) Visit(p1CurrentHouse, true);
+		else Visit(p2CurrentHouse, false);
 	}
 
 	std::cout << "Houses visited: " << locHouses.size() << std::endl;
@@ -55,19 +62,19 @@ void main()
 	system("pause");
 }
 
-void Visit(HouseData aHouse)
+void Visit(HouseData aHouse, bool)
 {
-	for (unsigned int i = 0; i < locHouses.size(); ++i)
-	{
-		if (aHouse.myPosition.x == locHouses[i].myPosition.x && 
-			aHouse.myPosition.y == locHouses[i].myPosition.y)
+		for (unsigned int i = 0; i < locHouses.size(); ++i)
 		{
-			locHouses[i].numberOfPresents++;
-			return;
+			if (aHouse.myPosition.x == locHouses[i].myPosition.x &&
+				aHouse.myPosition.y == locHouses[i].myPosition.y)
+			{
+				locHouses[i].numberOfPresents++;
+				return;
+			}
 		}
-	}
-	aHouse.numberOfPresents += 1;
-	locHouses.push_back(aHouse);
+		aHouse.numberOfPresents += 1;
+		locHouses.push_back(aHouse);
 }
 
 void GetRoomNumber(const std::string& aInputString, int& aRoomNumber, int& aFirstCharacterToBasement)
