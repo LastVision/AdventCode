@@ -10,6 +10,9 @@
     <Filter Include="CommonHelper">
       <UniqueIdentifier>{26b95a09-1d87-408e-ab0f-fd00e0073f4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HashCode">
+      <UniqueIdentifier>{32ee0787-0a63-471a-a699-c1c68656c313}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -22,6 +25,9 @@
     <ClCompile Include="CommonHelper.cpp">
       <Filter>CommonHelper</Filter>
     </ClCompile>
+    <ClCompile Include="md5.cpp">
+      <Filter>HashCode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -32,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="CommonHelper.h">
       <Filter>CommonHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="md5.h">
+      <Filter>HashCode</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

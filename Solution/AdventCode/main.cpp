@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "FileReader.h"
 #include "CommonHelper.h"
+#include "md5.h"
+
+
 
 struct HouseData
 {
@@ -18,48 +21,55 @@ std::vector<HouseData> locHouses;
 std::vector<HouseData> locPlayerOneHouses;
 std::vector<HouseData> locPlayerTwoHouses;
 
+bool IsGood(std::string aCode);
+
 void main()
 {
-	FileReader reader("Data/AdventCodeDayThree.txt");
+	//FileReader reader("Data/AdventCodeDayThree.txt");
 	CommonHelper helper;
+	MD5 md5decoder;
+	//std::string path = reader.ReadAll();
+	//std::string path = "ckczppom";
+	std::string code = "ckczppom";
+	std::string result = md5(code);
 
-	std::string path = reader.ReadAll();
-	//std::string path = "^v^v^v^v^v";
-
-	HouseData p1CurrentHouse;
-	HouseData p2CurrentHouse;
-
-	Visit(p1CurrentHouse, true);
-	Visit(p2CurrentHouse, false);
-	for (unsigned int i = 0; i < path.length(); ++i)
+	int a = 0;
+	int b = 0;
+	while (true)
 	{
-		if (path[i] == '<')
+		std::string temp = code;
+		temp += std::to_string((long double)a);
+		if (IsGood(md5(temp)))
 		{
-			if (i % 2 == 0) p1CurrentHouse.myPosition.x--;
-			else p2CurrentHouse.myPosition.x--;
+			std::cout << a;
+			break;
 		}
-		else if (path[i] == '>')
+		if (++b >= 100000)
 		{
-			if (i % 2 == 0) p1CurrentHouse.myPosition.x++;
-			else p2CurrentHouse.myPosition.x++;
+			std::cout << a << "..." << std::endl;
+			b = 0;
 		}
-		else if (path[i] == '^')
-		{
-			if (i % 2 == 0) p1CurrentHouse.myPosition.y++;
-			else p2CurrentHouse.myPosition.y++;
-		}
-		else if (path[i] == 'v')
-		{
-			if (i % 2 == 0) p1CurrentHouse.myPosition.y--;
-			else p2CurrentHouse.myPosition.y--;
-		}
-		if (i % 2 == 0) Visit(p1CurrentHouse, true);
-		else Visit(p2CurrentHouse, false);
+		a++;
 	}
 
-	std::cout << "Houses visited: " << locHouses.size() << std::endl;
+	std::cout << "md5 of " << code << " : " << result << std::endl;
 
 	system("pause");
+}
+
+bool IsGood(std::string aCode)
+{
+	if (aCode.size() > 5)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			if (aCode[i] != '0')
+			{
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 void Visit(HouseData aHouse, bool)
