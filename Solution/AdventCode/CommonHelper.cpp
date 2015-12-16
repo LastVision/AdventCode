@@ -34,3 +34,43 @@ std::vector<Vector3<float>> CommonHelper::ConvertStringVectorToVector3f(const st
 	}
 	return returnVector;
 }
+
+int CommonHelper::GetNumberOfVowelsFromString(const std::string& aString)
+{
+	int numberOfVowles = 0;
+	for (int i = 0; i < aString.length(); ++i)
+	{
+		if (aString[i] == 'a' || aString[i] == 'e' || aString[i] == 'i' 
+			|| aString[i] == 'o' || aString[i] == 'u')
+		{
+			numberOfVowles++;
+		}
+	}
+	return numberOfVowles;
+}
+
+bool CommonHelper::HasDoubleLettersInRow(const std::string& aString)
+{
+	char previousLetter = -1;
+	for (int i = 0; i < aString.length(); ++i)
+	{
+		if (aString[i] == previousLetter)
+		{
+			return true;
+		}
+		previousLetter = aString[i];
+	}
+	return false;
+}
+
+bool CommonHelper::HasBannedWords(const std::string& aString, const std::vector<std::string>& someBannedWords)
+{
+	for (unsigned int i = 0; i < someBannedWords.size(); ++i)
+	{
+		if (aString.find(someBannedWords[i]) != std::string::npos)
+		{
+			return true;
+		}
+	}
+	return false;
+}

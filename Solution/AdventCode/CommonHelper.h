@@ -41,5 +41,8 @@ public:
 	~CommonHelper();
 
 	std::vector<Vector3<float>> ConvertStringVectorToVector3f(const std::vector<std::string>& aStringVector);
+	int GetNumberOfVowelsFromString(const std::string& aString);
+	bool HasDoubleLettersInRow(const std::string& aString);
+	bool HasBannedWords(const std::string& aString, const std::vector<std::string>& someBannedWords);
 };
 

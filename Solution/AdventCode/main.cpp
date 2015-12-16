@@ -21,40 +21,38 @@ std::vector<HouseData> locHouses;
 std::vector<HouseData> locPlayerOneHouses;
 std::vector<HouseData> locPlayerTwoHouses;
 
-bool IsGood(std::string aCode, int numberOfZeroes);
+bool IsGood(std::string aCode, unsigned int numberOfZeroes);
 
 void main()
 {
-	//FileReader reader("Data/AdventCodeDayThree.txt");
 	CommonHelper helper;
-	MD5 md5decoder;
-	//std::string path = reader.ReadAll();
-	//std::string code = "abcdef";
-	std::string code = "ckczppom";
-	std::string result = md5(code);
+	FileReader fileReader("Data/AdventCodeDayFive.txt");
+	std::vector<std::string> listOfStrings = fileReader.ReadLines();
+	std::vector<std::string> bannedStrings;
+	bannedStrings.push_back("ab");
+	bannedStrings.push_back("cd");
+	bannedStrings.push_back("pq");
+	bannedStrings.push_back("xy");
 
-	int a = 0;
-	int b = 0;
-	std::string temp;
-	while (true)
+	int numberOfBadStrings = 0;
+	int numberOfNiceStrings = 0;
+	
+	for (unsigned int i = 0; i < listOfStrings.size(); ++i)
 	{
-		temp = code;
-		temp += std::to_string(a);
-		if (IsGood(md5(temp), 6))
+		if (helper.GetNumberOfVowelsFromString(listOfStrings[i]) >= 3 &&
+			helper.HasDoubleLettersInRow(listOfStrings[i]) == true &&
+			helper.HasBannedWords(listOfStrings[i], bannedStrings) == false)
 		{
-			result = md5(temp);
-			std::cout << a;
-			break;
+			numberOfNiceStrings++;
 		}
-		if (++b >= 100000)
+		else 
 		{
-			std::cout << a << "..." << std::endl;
-			b = 0;
+			numberOfBadStrings++;
 		}
-		a++;
 	}
 
-	std::cout << "md5 of " << code << " : " << result << " tries: " << a << std::endl;
+	std::cout << "There was " << numberOfNiceStrings << " nice strings out of " << listOfStrings.size() << std::endl;
+	std::cout << "There was " << numberOfBadStrings << " bad strings." << std::endl;
 
 	system("pause");
 }
