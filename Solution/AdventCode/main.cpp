@@ -21,7 +21,7 @@ std::vector<HouseData> locHouses;
 std::vector<HouseData> locPlayerOneHouses;
 std::vector<HouseData> locPlayerTwoHouses;
 
-bool IsGood(std::string aCode);
+bool IsGood(std::string aCode, int numberOfZeroes);
 
 void main()
 {
@@ -29,18 +29,20 @@ void main()
 	CommonHelper helper;
 	MD5 md5decoder;
 	//std::string path = reader.ReadAll();
-	//std::string path = "ckczppom";
+	//std::string code = "abcdef";
 	std::string code = "ckczppom";
 	std::string result = md5(code);
 
 	int a = 0;
 	int b = 0;
+	std::string temp;
 	while (true)
 	{
-		std::string temp = code;
-		temp += std::to_string((long double)a);
-		if (IsGood(md5(temp)))
+		temp = code;
+		temp += std::to_string(a);
+		if (IsGood(md5(temp), 6))
 		{
+			result = md5(temp);
 			std::cout << a;
 			break;
 		}
@@ -52,16 +54,16 @@ void main()
 		a++;
 	}
 
-	std::cout << "md5 of " << code << " : " << result << std::endl;
+	std::cout << "md5 of " << code << " : " << result << " tries: " << a << std::endl;
 
 	system("pause");
 }
 
-bool IsGood(std::string aCode)
+bool IsGood(std::string aCode, int numberOfZeroes)
 {
-	if (aCode.size() > 5)
+	if (aCode.size() > numberOfZeroes)
 	{
-		for (int i = 0; i < 5; ++i)
+		for (int i = 0; i < numberOfZeroes; ++i)
 		{
 			if (aCode[i] != '0')
 			{
