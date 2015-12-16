@@ -44,6 +44,7 @@ void main()
 		{
 			result = md5(temp);
 			std::cout << a;
+			result = md5(temp);
 			break;
 		}
 		if (++b >= 100000)
