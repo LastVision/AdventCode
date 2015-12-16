@@ -16,7 +16,7 @@ std::vector<Vector3<float>> CommonHelper::ConvertStringVectorToVector3f(const st
 	std::vector<Vector3<float>> returnVector;
 	Vector3<float> convertedInput(0,0,0);
 
-	for (int i = 0; i < aStringVector.size(); ++i)
+	for (unsigned int i = 0; i < aStringVector.size(); ++i)
 	{
 		int firstX = aStringVector[i].find_first_of("x");
 		int secondX = aStringVector[i].find_first_of("x", firstX + 1);

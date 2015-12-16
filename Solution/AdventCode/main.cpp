@@ -44,7 +44,6 @@ void main()
 		{
 			result = md5(temp);
 			std::cout << a;
-			result = md5(temp);
 			break;
 		}
 		if (++b >= 100000)
@@ -60,7 +59,7 @@ void main()
 	system("pause");
 }
 
-bool IsGood(std::string aCode, int numberOfZeroes)
+bool IsGood(std::string aCode, unsigned int numberOfZeroes)
 {
 	if (aCode.size() > numberOfZeroes)
 	{
