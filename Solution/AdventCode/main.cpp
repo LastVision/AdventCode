@@ -28,20 +28,17 @@ void main()
 	CommonHelper helper;
 	FileReader fileReader("Data/AdventCodeDayFive.txt");
 	std::vector<std::string> listOfStrings = fileReader.ReadLines();
-	std::vector<std::string> bannedStrings;
-	bannedStrings.push_back("ab");
-	bannedStrings.push_back("cd");
-	bannedStrings.push_back("pq");
-	bannedStrings.push_back("xy");
-
+	
 	int numberOfBadStrings = 0;
 	int numberOfNiceStrings = 0;
 	
+	std::string test = "aabaa";
+	std::cout << helper.HasRepeatablePair(test) << std::endl;
+
 	for (unsigned int i = 0; i < listOfStrings.size(); ++i)
 	{
-		if (helper.GetNumberOfVowelsFromString(listOfStrings[i]) >= 3 &&
-			helper.HasDoubleLettersInRow(listOfStrings[i]) == true &&
-			helper.HasBannedWords(listOfStrings[i], bannedStrings) == false)
+		if (helper.HasRepeatablePair(listOfStrings[i]) == true &&
+			helper.HasRepeatingLettersWithOneBetween(listOfStrings[i]) == true)
 		{
 			numberOfNiceStrings++;
 		}

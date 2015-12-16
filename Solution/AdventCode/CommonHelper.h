@@ -44,5 +44,9 @@ public:
 	int GetNumberOfVowelsFromString(const std::string& aString);
 	bool HasDoubleLettersInRow(const std::string& aString);
 	bool HasBannedWords(const std::string& aString, const std::vector<std::string>& someBannedWords);
+	bool HasRepeatingLettersWithOneBetween(const std::string& aString);
+	bool HasRepeatablePair(const std::string& aString);
+private:
+	bool HasRepeatablePair(const std::string& aString, const std::string& aPair);
 };
 

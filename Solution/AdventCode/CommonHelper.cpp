@@ -74,3 +74,51 @@ bool CommonHelper::HasBannedWords(const std::string& aString, const std::vector<
 	}
 	return false;
 }
+
+bool CommonHelper::HasRepeatingLettersWithOneBetween(const std::string& aString)
+{
+	char previousLetter = -1;
+	for (unsigned int i = 2; i < aString.size(); ++i)
+	{
+		previousLetter = aString[i - 2];
+		if (aString[i] == previousLetter)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CommonHelper::HasRepeatablePair(const std::string& aString)
+{
+	std::string pair;
+	for (int i = 0; i < aString.size() - 1; ++i)
+	{
+		pair = aString.substr(i, 2);
+		if (HasRepeatablePair(aString, pair) == true)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CommonHelper::HasRepeatablePair(const std::string& aString, const std::string& aPair)
+{
+	int numberOfTimesRepeated = 0;
+	std::string checkPair;
+	for (int i = 0; i < aString.size(); i++)
+	{
+		checkPair = aString.substr(i, 2);
+		if (checkPair == aPair)
+		{
+			numberOfTimesRepeated++;
+			i++;
+		}
+	}
+	if (numberOfTimesRepeated >= 2)
+	{
+		return true;
+	}
+	return false;
+}
